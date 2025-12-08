@@ -37,9 +37,6 @@
 //   console.log("Server is running");
 // });
 
-
-
-
 // const express = require("express");
 // const app = express();
 // const port = 3030;
@@ -56,25 +53,28 @@
 //   res.send(`This is ${req.params.slug} page`);
 // });
 
-
-
-const express = require('express');
+const express = require("express");
 const app = express();
 const port = 3000;
 
+app.use(express.static('public'))
+
 // উদাহরণস্বরূপ, একটি সিম্পল ডেটা স্টোর
 let items = [
-  { id: 1, name: 'Item 1' },
-  { id: 2, name: 'Item 2' },
-  { id: 3, name: 'Item 3' }
+  { id: 1, name: "Item 1" },
+  { id: 2, name: "Item 2" },
+  { id: 3, name: "Item 3" },
 ];
 
 // DELETE মেথড দিয়ে আইটেম মুছে ফেলা
-app.delete('/items/:id', (req, res) => {
-  const id = parseInt(req.params.id);
-  items = items.filter(item => item.id !== id);
+app.delete("/items/:id", (req, res) => {
+  const id = req.params.id;
+  items = items.filter((item) => item.id !== id);
   res.send({ message: `Item with id ${id} deleted.` });
 });
+app.get("/",(req,res) =>{
+  res.end("Home route")
+})
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
